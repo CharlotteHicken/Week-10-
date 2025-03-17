@@ -24,12 +24,14 @@ namespace NodeCanvas.Tasks.Actions {
             if (currentTransform.value == targetATransform)
             {
                 currentTransform.value = targetBTransform;
+                EndAction(true);
             }
             else
             {
                 currentTransform.value = targetATransform;
+                EndAction(true);
             }
-            EndAction(true);
+            
         }
 
 		//Called once per frame while the action is active.
