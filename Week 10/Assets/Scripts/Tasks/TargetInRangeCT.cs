@@ -8,8 +8,9 @@ namespace NodeCanvas.Tasks.Conditions {
 
 	public class TargetInRangeCT : ConditionTask {
 
-        public BBParameter<Transform> targetTransform;
-        public float arrivalDistance;
+        public BBParameter<Transform> currentTransform;
+        public float radius;
+		bool atLine = false;
 
         //Use for initialization. This is called only once in the lifetime of the task.
         //Return null if init was successfull. Return an error string otherwise
@@ -30,9 +31,14 @@ namespace NodeCanvas.Tasks.Conditions {
 		//Called once per frame while the condition is active.
 		//Return whether the condition is success or failure.
 		protected override bool OnCheck() {
-            float distanceToTarget = Vector3.Distance(agent.transform.position, targetTransform.value.position);
+            float distanceToTarget = Mathf.Abs(agent.transform.position.x - currentTransform.value.position.x);
 
-            return distanceToTarget < arrivalDistance;
+			if (distanceToTarget < radius)
+			{
+				atLine = true;
+			}
+
+			return atLine;
         }
 	}
 }
